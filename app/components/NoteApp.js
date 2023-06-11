@@ -1,5 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import noteService from "../services/noteService";
+import AddNote from "./AddNote";
+import NoteFilter from "./NoteFilter";
+import NoteList from "./NoteList";
 
 export default function NoteApp() {
   const [notes, setNotes] = useState([]);
@@ -27,28 +31,11 @@ export default function NoteApp() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="search notes ..."
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-      />
+      <NoteFilter filter={filter} setFilter={setFilter} />
 
-      <ul>
-        {notes.map((note) => (
-          <li key={note.id}>{note.desc}</li>
-        ))}
-      </ul>
+      <NoteList notes={notes} filter={filter} />
 
-      <form onSubmit={handleAdd}>
-        <input
-          type="text"
-          placeholder="add note ..."
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        />
-        <button>add</button>
-      </form>
+      <AddNote handleAdd={handleAdd} desc={desc} setDesc={setDesc} />
     </div>
   );
 }
