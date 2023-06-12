@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import noteService from "../services/noteService";
 import AddNote from "./AddNote";
+import NoteContext from "./NoteContext";
 import NoteFilter from "./NoteFilter";
 import NoteList from "./NoteList";
 
@@ -31,11 +32,21 @@ export default function NoteApp() {
 
   return (
     <div>
-      <NoteFilter filter={filter} setFilter={setFilter} />
-
-      <NoteList notes={notes} filter={filter} />
-
-      <AddNote handleAdd={handleAdd} desc={desc} setDesc={setDesc} />
+      <NoteContext.Provider
+        value={{
+          filter,
+          desc,
+          notes,
+          setFilter,
+          setDesc,
+          setNotes,
+          handleAdd,
+        }}
+      >
+        <NoteFilter />
+        <NoteList />
+        <AddNote />
+      </NoteContext.Provider>
     </div>
   );
 }

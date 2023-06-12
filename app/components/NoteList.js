@@ -1,4 +1,8 @@
-export default function NoteList({ notes, filter }) {
+import { useContext } from "react";
+import NoteContext from "./NoteContext";
+
+export default function NoteList() {
+  const { notes, filter } = useContext(NoteContext);
   return (
     <div>
       <ul>
